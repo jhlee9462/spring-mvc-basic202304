@@ -32,8 +32,9 @@
         <div id="content">${b.content}</div>
         <div class="buttons">
             <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
+            <button class="modify-btn" type="button" onclick="window.location.href='/board/modify?bno=${b.boardNo}'">수정하기</button>
         </div>
-        
+
     </div>
 </body>
 </html>

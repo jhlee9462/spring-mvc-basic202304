@@ -26,21 +26,22 @@
 
 </head>
 <body>
-    <div id="wrap" class="form-container">
-        <h1>꾸러기 게시판 글쓰기</h1>
-        <form action="/board/write" method="post">
-            <label for="title">제목</label>
-            <input type="text" id="title" name="title" required>
-            <label for="content">내용</label>
-            <textarea id="content" name="content" maxlength="200" required></textarea>
-            <div class="buttons">
-                <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
-                <button type="submit">글쓰기</button>
-            </div>
-        </form>
-    </div>
-    <script>
-        CKEDITOR.replace('content');
-    </script>
+<div id="wrap" class="form-container">
+    <h1>꾸러기 게시판 글쓰기</h1>
+    <form action="/board/modify" method="post">
+        <input type="text" hidden name="boardNo" value="${board.boardNo}">
+        <label for="title">제목</label>
+        <input type="text" id="title" name="title" required value="${board.title}">
+        <label for="content">내용</label>
+        <textarea id="content" name="content" maxlength="200" required>${board.content}</textarea>
+        <div class="buttons">
+            <button class="list-btn" type="button" onclick="window.location.href='/board/list'">목록</button>
+            <button type="submit">수정하기</button>
+        </div>
+    </form>
+</div>
+<script>
+    CKEDITOR.replace('content');
+</script>
 </body>
 </html>

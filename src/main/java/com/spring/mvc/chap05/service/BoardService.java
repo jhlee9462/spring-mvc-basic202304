@@ -2,6 +2,7 @@ package com.spring.mvc.chap05.service;
 
 import com.spring.mvc.chap05.dto.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
+import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardRepository;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -46,5 +46,13 @@ public class BoardService {
         board.setViewCount(board.getViewCount() + 1);
 
         return new BoardDetailResponseDTO(board);
+    }
+
+    public BoardModifyDTO getModify(int bno) {
+        return new BoardModifyDTO(boardRepository.findOne(bno));
+    }
+
+    public boolean modify(BoardModifyDTO dto) {
+        return boardRepository.modify(dto);
     }
 }

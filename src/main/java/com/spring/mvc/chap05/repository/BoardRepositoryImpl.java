@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.repository;
 
+import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.entity.Board;
 import org.springframework.stereotype.Repository;
 
@@ -51,6 +52,16 @@ public class BoardRepositoryImpl
     @Override
     public boolean deleteByNo(int boardNo) {
         boardMap.remove(boardNo);
+        return true;
+    }
+
+    @Override
+    public boolean modify(BoardModifyDTO dto) {
+        Board board = boardMap.get(dto.getBoardNo());
+
+        board.setTitle(dto.getTitle());
+        board.setContent(dto.getContent());
+
         return true;
     }
 }
