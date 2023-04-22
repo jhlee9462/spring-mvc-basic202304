@@ -19,6 +19,7 @@ public class BoardListResponseDTO {
     private final String shortContent; // 30자 이상 줄임
     private final String date; // 날짜패턴 yyyy-MM-dd HH:mm
     private final int viewCount;
+    private final boolean newFlag;
 
     public BoardListResponseDTO(Board board) {
         this.boardNo = board.getBoardNo();
@@ -26,6 +27,11 @@ public class BoardListResponseDTO {
         this.shortContent = makeShortContent(board.getContent());
         this.date = makePrettierDateString(board.getRegDateTime());
         this.viewCount = board.getViewCount();
+        this.newFlag = isNew(board);
+    }
+
+    private boolean isNew(Board board) {
+        return LocalDateTime.now().minusMinutes(5).isBefore(board.getRegDateTime());
     }
 
     static String makePrettierDateString(LocalDateTime regDateTime) {

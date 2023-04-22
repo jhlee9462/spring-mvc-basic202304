@@ -34,7 +34,7 @@
         <div class="card-container">
 
             <c:forEach var="b" items="${bList}">
-                <div class="card-wrapper">
+                <div class="card-wrapper" data-is-new="${b.newFlag}">
                     <section class="card" data-bno="${b.boardNo}">
                         <div class="card-title-wrapper">
                             <h2 class="card-title">${b.shortTitle}</h2>
@@ -175,7 +175,15 @@
             window.location.href = '/board/write';
         };
 
-        
+        // add new tag
+        [...document.querySelectorAll('.card-wrapper')]
+            .filter(w => w.dataset.isNew === 'true')
+            .forEach(w => {
+               const $newTag = document.createElement('div');
+               $newTag.classList.add('new');
+               $newTag.textContent = 'N';
+               w.appendChild($newTag);
+            });
 
     </script>
 
