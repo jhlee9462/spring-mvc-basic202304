@@ -9,6 +9,7 @@ import com.spring.mvc.chap05.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.*;
@@ -54,5 +55,32 @@ public class BoardService {
 
     public boolean modify(BoardModifyDTO dto) {
         return boardRepository.modify(dto);
+    }
+
+    // 정렬
+    public List<BoardListResponseDTO> getList(String way) {
+
+        Comparator<Board> comparator;
+
+        switch (way) {
+            case "title":
+                comparator = Comparator.comparing(Board::getTitle);
+                break;
+            case "regTime":
+                comparator = Comparator.comparing(Board::getRegDateTime);
+                break;
+            case "viewCount":
+                comparator = Comparator.comparing(Board::getViewCount);
+                break;
+            default:
+                comparator = Comparator.comparing(Board::getBoardNo);
+                break;
+        }
+
+        return boardRepository.findAll()
+                .stream()
+                .sorted(comparator)
+                .map(BoardListResponseDTO::new)
+                .collect(toList());
     }
 }

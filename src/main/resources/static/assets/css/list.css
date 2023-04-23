@@ -228,3 +228,34 @@
     top: 0;
     left: 0;
 }
+
+/* sort button tag */
+.sort-and-search-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sort-and-search-wrapper .sort-wrapper .sort-btn {
+    width: fit-content;
+    padding: 10px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.sort-and-search-wrapper .sort-wrapper .sort-btn:nth-child(3n) {
+    background: rgb(216, 112, 147);
+}
+
+.sort-and-search-wrapper .sort-wrapper .sort-btn:nth-child(3n + 1) {
+    background: rgb(100, 200, 147);
+}
+
+.sort-and-search-wrapper .sort-wrapper .sort-btn:nth-child(3n + 2) {
+    background: rgb(100, 112, 250);
+}
+
+.sort-and-search-wrapper .sort-wrapper .sort-btn:hover {
+    opacity: 70%;
+}

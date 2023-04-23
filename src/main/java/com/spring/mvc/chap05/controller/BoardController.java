@@ -80,4 +80,17 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
+
+    // 정렬 요청
+    @GetMapping("/sort")
+    public String sort(String way, Model model) {
+
+        System.out.println("/board/sort : GET");
+
+        List<BoardListResponseDTO> responseDTOS = boardService.getList(way);
+
+        model.addAttribute("bList", responseDTOS);
+
+        return "chap05/list";
+    }
 }

@@ -65,6 +65,17 @@
 
         </div>
 
+        <div class="sort-and-search-wrapper">
+
+            <div class="sort-wrapper">
+                <button class="sort-btn" id="board-no" onclick="window.location.href='/board/sort?way=boardNo'">글 번호</button>
+                <button class="sort-btn" id="title" onclick="window.location.href='/board/sort?way=title'">제목</button>
+                <button class="sort-btn" id="view-count" onclick="window.location.href='/board/sort?way=viewCount'">조회수</button>
+                <button class="sort-btn" id="reg-time" onclick="window.location.href='/board/sort?way=regTime'">작성 시간</button>
+            </div>
+
+        </div>
+
     </div>
 
     <!-- 모달 창 -->
