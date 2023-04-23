@@ -4,6 +4,7 @@ import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.entity.Board;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,4 +65,5 @@ public class BoardRepositoryImpl
 
         return true;
     }
+
 }

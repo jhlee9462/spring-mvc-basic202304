@@ -83,4 +83,12 @@ public class BoardService {
                 .map(BoardListResponseDTO::new)
                 .collect(toList());
     }
+
+    public List<BoardListResponseDTO> getListByKeyword(String keyword) {
+        return boardRepository.findAll()
+                .stream()
+                .filter(board -> board.getTitle().contains(keyword) || board.getContent().contains(keyword))
+                .map(BoardListResponseDTO::new)
+                .collect(toList());
+    }
 }

@@ -233,6 +233,7 @@
 .sort-and-search-wrapper {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .sort-and-search-wrapper .sort-wrapper .sort-btn {
@@ -258,4 +259,15 @@
 
 .sort-and-search-wrapper .sort-wrapper .sort-btn:hover {
     opacity: 70%;
+}
+
+/* search button style */
+.search-wrapper .search-btn {
+    width: fit-content;
+    padding: 10px;
+    border-radius: 15px;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    background: rgb(100, 112, 250);
 }

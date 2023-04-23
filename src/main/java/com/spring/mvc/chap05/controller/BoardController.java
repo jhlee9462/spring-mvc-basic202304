@@ -93,4 +93,16 @@ public class BoardController {
 
         return "chap05/list";
     }
+
+    // 검색 요청
+    @PostMapping("/search")
+    public String search(String keyword, Model model) {
+        System.out.println("/board/search : POST");
+
+        List<BoardListResponseDTO> responseDTOS = boardService.getListByKeyword(keyword);
+
+        model.addAttribute("bList", responseDTOS);
+
+        return "chap05/list";
+    }
 }

@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/list.css">
 
+
 </head>
 
 <body>
@@ -72,6 +73,15 @@
                 <button class="sort-btn" id="title" onclick="window.location.href='/board/sort?way=title'">제목</button>
                 <button class="sort-btn" id="view-count" onclick="window.location.href='/board/sort?way=viewCount'">조회수</button>
                 <button class="sort-btn" id="reg-time" onclick="window.location.href='/board/sort?way=regTime'">작성 시간</button>
+            </div>
+
+            <div class="search-wrapper">
+                <form action="/board/search" method="post">
+                    <label>
+                        <input class="search-input" type="text" name="keyword">
+                    </label>
+                    <button class="search-btn" type="submit">검색</button>
+                </form>
             </div>
 
         </div>
