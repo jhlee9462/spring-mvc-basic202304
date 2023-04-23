@@ -67,10 +67,10 @@ public class BoardService {
                 comparator = Comparator.comparing(Board::getTitle);
                 break;
             case "regTime":
-                comparator = Comparator.comparing(Board::getRegDateTime);
+                comparator = Comparator.comparing(Board::getRegDateTime).reversed();
                 break;
             case "viewCount":
-                comparator = Comparator.comparing(Board::getViewCount);
+                comparator = Comparator.comparing(Board::getViewCount).reversed();
                 break;
             default:
                 comparator = Comparator.comparing(Board::getBoardNo);
