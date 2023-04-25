@@ -141,9 +141,6 @@
             if (confirm('정말로 삭제하시겠습니까?')) {
                 //삭제 진행
                 window.location.href = e.target.getAttribute('href');
-            } else {
-                //삭제 취소
-                return;
             }
         });
 

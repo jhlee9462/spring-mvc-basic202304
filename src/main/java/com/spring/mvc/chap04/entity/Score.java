@@ -22,6 +22,16 @@ public class Score {
         changeScore(dto);
     }
 
+    public Score(String name, int kor, int eng, int math, int stuNum) {
+        this.name = name;
+        this.kor = kor;
+        this.eng = eng;
+        this.math = math;
+        this.stuNum = stuNum;
+        calcTotalAndAvg();
+        calcGrade();
+    }
+
     public void changeScore(ScoreRequestDTO dto) {
         this.kor = dto.getKor();
         this.eng = dto.getEng();
