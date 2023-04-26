@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public class PersonRepository {
 
-    private String url = "jdbc:mariadb://localhost:3306/spring";
-    private String username = "root";
-    private String password = "1234";
+    private final String url = "jdbc:mariadb://localhost:3306/spring";
+    private final String username = "root";
+    private final String password = "1234";
 
     public PersonRepository() {
         // 1. 드라이버 클래스를 로딩 ( mariaDB 커넥터 로딩 )
