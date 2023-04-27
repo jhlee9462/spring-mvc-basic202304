@@ -11,6 +11,7 @@ import java.sql.SQLException;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString @EqualsAndHashCode
+@Builder
 public class Person {
 
     private long id;
