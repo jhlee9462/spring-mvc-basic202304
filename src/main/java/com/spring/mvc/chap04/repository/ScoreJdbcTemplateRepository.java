@@ -15,14 +15,25 @@ public class ScoreJdbcTemplateRepository implements ScoreRepository {
 
     @Override
     public List<Score> findAll() {
-        String sql = "SELECT * FROM tbl_score";
-
-        return jdbcTemplate.query(sql, (rs, rowNum) -> new Score(rs));
+        return findAll("num");
     }
 
     @Override
     public List<Score> findAll(String sort) {
-        return ScoreRepository.super.findAll(sort);
+        String sql = "SELECT * FROM tbl_score ";
+        switch (sort) {
+            case "num":
+                sql += "ORDER BY stu_num";
+                break;
+            case "name":
+                sql += "ORDER BY name";
+                break;
+            case "avg":
+                sql += "ORDER BY average DESC";
+                break;
+        }
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> new Score(rs));
     }
 
     @Override
