@@ -36,7 +36,7 @@ class PersonMapperTest {
     @DisplayName("마이바티스 매퍼로 사람정보 업데이트에 성공해야 한다.")
     void modifyTest() {
         Person p = Person.builder()
-                .id(8)
+                .id(9)
                 .personName("한세건")
                 .personAge(20)
                 .build();
@@ -49,7 +49,7 @@ class PersonMapperTest {
     @Test
     @DisplayName("마이바티스 매퍼로 사람정보 삭제에 성공해야 한다.")
     void deleteTest() {
-        boolean result = mapper.remove(8);
+        boolean result = mapper.remove(9);
 
         assertTrue(result);
     }

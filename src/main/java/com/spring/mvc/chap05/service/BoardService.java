@@ -5,8 +5,10 @@ import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
+import com.spring.mvc.chap05.repository.BoardMapper;
 import com.spring.mvc.chap05.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -18,13 +20,15 @@ import static java.util.stream.Collectors.*;
 @RequiredArgsConstructor
 public class BoardService {
 
-    private final BoardRepository boardRepository;
+//    private final BoardRepository boardRepository;
+
+    private final BoardMapper mapper;
 
     // 중간처리 기능 자유롭게 사용
     // 목록 중간처리
     public List<BoardListResponseDTO> getList() {
 
-        return boardRepository.findAll()
+        return mapper.findAll()
                 .stream()
                 .map(BoardListResponseDTO::new)
                 .collect(toList())
@@ -33,28 +37,29 @@ public class BoardService {
 
     // 글 등록 중간처리
     public boolean register(BoardWriteRequestDTO dto) {
-        return boardRepository.save(new Board(dto));
+        return mapper.save(new Board(dto));
     }
 
     public boolean delete(int bno) {
-        return boardRepository.deleteByNo(bno);
+        return mapper.deleteByNo(bno);
     }
 
     public BoardDetailResponseDTO getDetail(int bno) {
 
-        Board board = boardRepository.findOne(bno);
+        Board board = mapper.findOne(bno);
         // 조회수 상승 처리
         board.setViewCount(board.getViewCount() + 1);
+        mapper.modify(new BoardModifyDTO(board));
 
         return new BoardDetailResponseDTO(board);
     }
 
     public BoardModifyDTO getModify(int bno) {
-        return new BoardModifyDTO(boardRepository.findOne(bno));
+        return new BoardModifyDTO(mapper.findOne(bno));
     }
 
     public boolean modify(BoardModifyDTO dto) {
-        return boardRepository.modify(dto);
+        return mapper.modify(dto);
     }
 
     // 정렬
@@ -77,7 +82,7 @@ public class BoardService {
                 break;
         }
 
-        return boardRepository.findAll()
+        return mapper.findAll()
                 .stream()
                 .sorted(comparator)
                 .map(BoardListResponseDTO::new)
@@ -85,7 +90,7 @@ public class BoardService {
     }
 
     public List<BoardListResponseDTO> getListByKeyword(String keyword) {
-        return boardRepository.findAll()
+        return mapper.findAll()
                 .stream()
                 .filter(board -> board.getTitle().contains(keyword) || board.getContent().contains(keyword))
                 .map(BoardListResponseDTO::new)

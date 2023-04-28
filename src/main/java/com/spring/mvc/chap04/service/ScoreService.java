@@ -6,6 +6,7 @@ import com.spring.mvc.chap04.entity.Score;
 import com.spring.mvc.chap04.repository.ScoreMapper;
 import com.spring.mvc.chap04.repository.ScoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,10 @@ public class ScoreService {
         // 만약에 스코어 전체데이터말고
         // 몇개만 추리고 전후처리해서 줘라
         return mapper.findByStuNum(stuNum);
+    }
+
+    public boolean modify(Score score) {
+        return mapper.modify(score);
     }
 
 }

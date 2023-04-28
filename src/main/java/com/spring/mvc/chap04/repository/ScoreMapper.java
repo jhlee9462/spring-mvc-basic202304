@@ -16,4 +16,6 @@ public interface ScoreMapper {
 
     List<Score> findAll(String sort);
 
+    boolean modify(Score score);
+
 }

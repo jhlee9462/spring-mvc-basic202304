@@ -21,17 +21,17 @@
     </delete>
 
 <!--    ORM : 자바객체 필드와 테이블 컬럼을 매핑 -->
-    <resultMap id="person" type="com.spring.mvc.jdbc.Person">
+<!--    <resultMap id="person" type="com.spring.mvc.jdbc.Person">-->
 <!--            컬럼명과 필드명이 다른 것만 설정해주면 됨 -->
-        <result property="personName" column="person_name"/>
-        <result property="personAge" column="person_age"/>
-    </resultMap>
+<!--        <result property="personName" column="person_name"/>-->
+<!--        <result property="personAge" column="person_age"/>-->
+<!--    </resultMap>-->
 
-    <select id="findAll" resultMap="person">
+    <select id="findAll" resultType="person">
         SELECT id, person_name, person_age FROM person
     </select>
 
-    <select id="findOne" resultMap="person">
+    <select id="findOne" resultType="person">
         SELECT id, person_age, person_name FROM person WHERE id=#{id}
     </select>
 </mapper>
