@@ -4,6 +4,7 @@ import com.spring.mvc.chap05.dto.BoardDetailResponseDTO;
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
+import com.spring.mvc.chap05.dto.page.Page;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardMapper;
 import com.spring.mvc.chap05.repository.BoardRepository;
@@ -26,9 +27,9 @@ public class BoardService {
 
     // 중간처리 기능 자유롭게 사용
     // 목록 중간처리
-    public List<BoardListResponseDTO> getList() {
+    public List<BoardListResponseDTO> getList(Page page) {
 
-        return mapper.findAll()
+        return mapper.findAll(page)
                 .stream()
                 .map(BoardListResponseDTO::new)
                 .collect(toList())
@@ -63,7 +64,7 @@ public class BoardService {
     }
 
     // 정렬
-    public List<BoardListResponseDTO> getList(String way) {
+    public List<BoardListResponseDTO> getList(String way, Page page) {
 
         Comparator<Board> comparator;
 
@@ -82,18 +83,22 @@ public class BoardService {
                 break;
         }
 
-        return mapper.findAll()
+        return mapper.findAll(page)
                 .stream()
                 .sorted(comparator)
                 .map(BoardListResponseDTO::new)
                 .collect(toList());
     }
 
-    public List<BoardListResponseDTO> getListByKeyword(String keyword) {
-        return mapper.findAll()
+    public List<BoardListResponseDTO> getListByKeyword(String keyword, Page page) {
+        return mapper.findAll(page)
                 .stream()
                 .filter(board -> board.getTitle().contains(keyword) || board.getContent().contains(keyword))
                 .map(BoardListResponseDTO::new)
                 .collect(toList());
+    }
+
+    public int getCount() {
+        return mapper.count();
     }
 }

@@ -19,6 +19,7 @@ CREATE TABLE tb_board (
 @ToString @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Board {
 
     private int boardNo; // 게시글 번호

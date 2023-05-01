@@ -3,8 +3,12 @@ package com.spring.mvc.chap05.controller;
 import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
+import com.spring.mvc.chap05.dto.page.Page;
+import com.spring.mvc.chap05.dto.page.PageMaker;
 import com.spring.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +20,24 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@Slf4j
 public class BoardController {
 
     private final BoardService boardService;
 
     // 목록 조회 요청
     @GetMapping("/list")
-    public String list(Model model) {
-        System.out.println("/board/list : GET");
+    public String list(Model model, Page page) {
+        log.info("/board/list : GET");
+        log.info("page : {}", page);
         List<BoardListResponseDTO> responseDTOS
-                = boardService.getList();
+                = boardService.getList(page);
         model.addAttribute("bList", responseDTOS);
+
+        // 페이징 알고리즘 작동
+        PageMaker maker = new PageMaker(page, boardService.getCount());
+        model.addAttribute("maker", maker);
+
         return "chap05/list";
     }
 
@@ -83,11 +94,11 @@ public class BoardController {
 
     // 정렬 요청
     @GetMapping("/sort")
-    public String sort(String way, Model model) {
+    public String sort(String way, Model model, Page page) {
 
         System.out.println("/board/sort : GET");
 
-        List<BoardListResponseDTO> responseDTOS = boardService.getList(way);
+        List<BoardListResponseDTO> responseDTOS = boardService.getList(way, page);
 
         model.addAttribute("bList", responseDTOS);
 
@@ -96,10 +107,10 @@ public class BoardController {
 
     // 검색 요청
     @PostMapping("/search")
-    public String search(String keyword, Model model) {
+    public String search(String keyword, Model model, Page page) {
         System.out.println("/board/search : POST");
 
-        List<BoardListResponseDTO> responseDTOS = boardService.getListByKeyword(keyword);
+        List<BoardListResponseDTO> responseDTOS = boardService.getListByKeyword(keyword, page);
 
         model.addAttribute("bList", responseDTOS);
 
