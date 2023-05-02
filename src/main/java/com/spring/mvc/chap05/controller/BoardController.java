@@ -5,6 +5,7 @@ import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.dto.page.Page;
 import com.spring.mvc.chap05.dto.page.PageMaker;
+import com.spring.mvc.chap05.dto.search.Search;
 import com.spring.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -27,7 +29,7 @@ public class BoardController {
 
     // 목록 조회 요청
     @GetMapping("/list")
-    public String list(Model model, Page page) {
+    public String list(Model model, Search page) {
         log.info("/board/list : GET");
         log.info("page : {}", page);
         List<BoardListResponseDTO> responseDTOS
@@ -35,8 +37,9 @@ public class BoardController {
         model.addAttribute("bList", responseDTOS);
 
         // 페이징 알고리즘 작동
-        PageMaker maker = new PageMaker(page, boardService.getCount());
+        PageMaker maker = new PageMaker(page, boardService.getCount(page));
         model.addAttribute("maker", maker);
+        model.addAttribute("s", page);
 
         return "chap05/list";
     }
@@ -66,9 +69,10 @@ public class BoardController {
 
     // 글 상세 조회 요청
     @GetMapping("/detail")
-    public String detail(int bno, Model model) {
+    public String detail(int bno, Model model,@ModelAttribute("s") Search search) {
         System.out.println("/board/detail : GET");
         model.addAttribute("b", boardService.getDetail(bno));
+
         return "chap05/detail";
     }
 
@@ -94,7 +98,7 @@ public class BoardController {
 
     // 정렬 요청
     @GetMapping("/sort")
-    public String sort(String way, Model model, Page page) {
+    public String sort(String way, Model model, Search page) {
 
         System.out.println("/board/sort : GET");
 
@@ -107,7 +111,7 @@ public class BoardController {
 
     // 검색 요청
     @PostMapping("/search")
-    public String search(String keyword, Model model, Page page) {
+    public String search(String keyword, Model model, Search page) {
         System.out.println("/board/search : POST");
 
         List<BoardListResponseDTO> responseDTOS = boardService.getListByKeyword(keyword, page);

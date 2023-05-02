@@ -5,6 +5,7 @@ import com.spring.mvc.chap05.dto.BoardListResponseDTO;
 import com.spring.mvc.chap05.dto.BoardModifyDTO;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.dto.page.Page;
+import com.spring.mvc.chap05.dto.search.Search;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardMapper;
 import com.spring.mvc.chap05.repository.BoardRepository;
@@ -27,7 +28,7 @@ public class BoardService {
 
     // 중간처리 기능 자유롭게 사용
     // 목록 중간처리
-    public List<BoardListResponseDTO> getList(Page page) {
+    public List<BoardListResponseDTO> getList(Search page) {
 
         return mapper.findAll(page)
                 .stream()
@@ -64,7 +65,7 @@ public class BoardService {
     }
 
     // 정렬
-    public List<BoardListResponseDTO> getList(String way, Page page) {
+    public List<BoardListResponseDTO> getList(String way, Search page) {
 
         Comparator<Board> comparator;
 
@@ -90,7 +91,7 @@ public class BoardService {
                 .collect(toList());
     }
 
-    public List<BoardListResponseDTO> getListByKeyword(String keyword, Page page) {
+    public List<BoardListResponseDTO> getListByKeyword(String keyword, Search page) {
         return mapper.findAll(page)
                 .stream()
                 .filter(board -> board.getTitle().contains(keyword) || board.getContent().contains(keyword))
@@ -98,7 +99,7 @@ public class BoardService {
                 .collect(toList());
     }
 
-    public int getCount() {
-        return mapper.count();
+    public int getCount(Search search) {
+        return mapper.count(search);
     }
 }

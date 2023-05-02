@@ -35,6 +35,28 @@
         <button class="add-btn">새 글 쓰기</button>
     </div>
 
+    <div class="top-section">
+        <!-- 검색창 영역 -->
+        <div class="search">
+            <form action="/board/list" method="get">
+
+                <select class="form-select" name="type" id="search-type">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                    <option value="tc">제목+내용</option>
+                </select>
+
+                <input type="text" class="form-control" name="keyword" value="${s.keyword}">
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
     <div class="card-container">
 
         <c:forEach var="b" items="${bList}">
@@ -78,24 +100,24 @@
             <ul class="pagination pagination-lg pagination-custom">
 
 
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}">&lt;&lt;</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}">&lt;&lt;</a></li>
 
 
                 <c:if test="${maker.prev}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}">prev</a></li>
+                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a></li>
                 </c:if>
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
                     <li data-page-num="${i}" class="page-item">
-                        <a class="page-link" href="/board/list?pageNo=${i}">${i}</a>
+                        <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}">${i}</a>
                     </li>
                 </c:forEach>
 
                 <c:if test="${maker.next}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}">next</a></li>
+                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}">next</a></li>
                 </c:if>
 
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.realEnd}">&gt;&gt;</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.realEnd}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a></li>
 
             </ul>
         </nav>
@@ -114,14 +136,14 @@
             </button>
         </div>
 
-        <div class="search-wrapper">
-            <form action="/board/search" method="post">
-                <label>
-                    <input class="search-input" type="text" name="keyword">
-                </label>
-                <button class="search-btn" type="submit">검색</button>
-            </form>
-        </div>
+<%--        <div class="search-wrapper">--%>
+<%--            <form action="/board/search" method="post">--%>
+<%--                <label>--%>
+<%--                    <input class="search-input" type="text" name="keyword">--%>
+<%--                </label>--%>
+<%--                <button class="search-btn" type="submit">검색</button>--%>
+<%--            </form>--%>
+<%--        </div>--%>
 
     </div>
 
@@ -175,7 +197,7 @@
             // section태그에 붙은 글번호 읽기
             const bno = e.target.closest('section.card').dataset.bno;
             // 요청 보내기
-            window.location.href = '/board/detail?bno=' + bno;
+            window.location.href = '/board/detail?bno=' + bno + '&pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}';
         }
     });
 
@@ -265,6 +287,18 @@
     }
 
     appendPageActive();
+
+    // 셀렉트옵션 검색타입 태그 고정
+    function fixSearchOption() {
+        const $select = document.getElementById('search-type');
+
+        for (let $opt of [...$select.children]) {
+            if ($opt.value === '${s.type}') {
+                $opt.setAttribute('selected', 'selected');
+                break;
+            }
+        }
+    }
 
 </script>
 
