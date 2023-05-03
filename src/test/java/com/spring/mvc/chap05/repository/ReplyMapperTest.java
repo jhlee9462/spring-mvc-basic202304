@@ -112,4 +112,16 @@ class ReplyMapperTest {
 
         assertEquals(3, count);
     }
+
+    @Test
+    void bulkReplyInsert() {
+        for (int i = 0; i < 301; i++) {
+            Reply reply = Reply.builder()
+                    .boardNo(300L)
+                    .replyText("페이지 댓글 내용 " + i)
+                    .replyWriter("망둥어")
+                    .build();
+            replyMapper.save(reply);
+        }
+    }
 }
