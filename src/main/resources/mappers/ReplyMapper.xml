@@ -14,7 +14,6 @@
         SET
             repLy_text=#{replyText},
             reply_date=CURRENT_TIMESTAMP,
-            reply_writer=#{replyWriter},
             board_no=#{boardNo}
         WHERE
             reply_no=#{replyNo}

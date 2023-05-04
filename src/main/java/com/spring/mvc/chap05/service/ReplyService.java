@@ -71,9 +71,7 @@ public class ReplyService {
     @Transactional
     public ReplyListResponseDTO modify(ReplyPutRequestDTO dto) throws SQLException {
 
-        String writer = replyMapper.findOne(dto.getRno()).getReplyWriter();
-
-        boolean flag = replyMapper.modify(dto.toEntity(writer));
+        boolean flag = replyMapper.modify(dto.toEntity());
 
         if (!flag) throw new SQLException("수정 실패!!");
 

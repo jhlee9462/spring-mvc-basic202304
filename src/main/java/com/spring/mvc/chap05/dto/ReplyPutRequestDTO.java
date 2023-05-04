@@ -26,10 +26,9 @@ public class ReplyPutRequestDTO {
     @NotBlank
     private String text;
 
-    public Reply toEntity(String writer) {
+    public Reply toEntity() {
         return Reply.builder()
                 .replyNo(rno)
-                .replyWriter(writer)
                 .replyText(text)
                 .boardNo(bno)
                 .build();
