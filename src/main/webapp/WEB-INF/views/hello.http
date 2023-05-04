@@ -1,0 +1,22 @@
+POST localhost:8181/api/v1/replies
+Content-Type: application/json
+
+{
+  "text": "안녕하세요",
+  "author": "집배원1"
+}
+
+###
+
+DELETE localhost:8181/api/v1/replies/1607
+
+###
+
+PUT localhost:8181/api/v1/replies
+Content-Type: application/json
+
+{
+  "rno": 913,
+  "bno": 7,
+  "text": "아니 꿀잼인데?~~~"
+}

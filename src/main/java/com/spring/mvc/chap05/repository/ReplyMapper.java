@@ -17,7 +17,7 @@ public interface ReplyMapper {
     boolean modify(Reply reply);
 
     // 댓글 삭제
-    boolean deleteOne(int replyNo);
+    boolean deleteOne(long replyNo);
 
     // 댓글 개별 조회
     Reply findOne(long replyNo);
