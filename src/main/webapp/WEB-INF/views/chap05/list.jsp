@@ -7,28 +7,17 @@
     <meta charset="UTF-8">
     <title>Insert title here</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Single+Day&display=swap" rel="stylesheet">
-
-    <!-- reset -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
-
-    <!-- fontawesome css: https://fontawesome.com -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
-
-    <!-- bootstrap css -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <%@ include file="../include/static-head.jsp" %>
     <link rel="stylesheet" href="/assets/css/list.css">
-
 
 </head>
 
 <body>
 
+<%@include file="../include/header.jsp" %>
+
 <div id="wrap">
+
 
     <div class="main-title-wrapper">
         <h1 class="main-title">꾸러기 게시판</h1>
@@ -100,11 +89,15 @@
             <ul class="pagination pagination-lg pagination-custom">
 
 
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}">&lt;&lt;</a></li>
+                <li class="page-item"><a class="page-link"
+                                         href="/board/list?pageNo=${1}&type=${s.type}&keyword=${s.keyword}">&lt;&lt;</a>
+                </li>
 
 
                 <c:if test="${maker.prev}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}">prev</a>
+                    </li>
                 </c:if>
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
@@ -114,10 +107,14 @@
                 </c:forEach>
 
                 <c:if test="${maker.next}">
-                    <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}">next</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}">next</a>
+                    </li>
                 </c:if>
 
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.realEnd}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a></li>
+                <li class="page-item"><a class="page-link"
+                                         href="/board/list?pageNo=${maker.realEnd}&type=${s.type}&keyword=${s.keyword}">&gt;&gt;</a>
+                </li>
 
             </ul>
         </nav>
@@ -136,14 +133,14 @@
             </button>
         </div>
 
-<%--        <div class="search-wrapper">--%>
-<%--            <form action="/board/search" method="post">--%>
-<%--                <label>--%>
-<%--                    <input class="search-input" type="text" name="keyword">--%>
-<%--                </label>--%>
-<%--                <button class="search-btn" type="submit">검색</button>--%>
-<%--            </form>--%>
-<%--        </div>--%>
+        <%--        <div class="search-wrapper">--%>
+        <%--            <form action="/board/search" method="post">--%>
+        <%--                <label>--%>
+        <%--                    <input class="search-input" type="text" name="keyword">--%>
+        <%--                </label>--%>
+        <%--                <button class="search-btn" type="submit">검색</button>--%>
+        <%--            </form>--%>
+        <%--        </div>--%>
 
     </div>
 
