@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!-- header -->
 <header>
@@ -9,7 +9,7 @@
                 <img src="/assets/img/logo.png" alt="로고이미지">
             </a>
         </h1>
-        <h2 class="intro-text">Welcome</h2>
+        <h2 class="intro-text">Welcome ${login == null ? "" : login.account}</h2>
         <a href="#" class="menu-open">
             <span class="menu-txt">MENU</span>
             <span class="lnr lnr-menu"></span>
@@ -25,8 +25,20 @@
             <li><a href="#">About</a></li>
             <li><a href="/board/list">Board</a></li>
             <li><a href="#">Contact</a></li>
-            <li><a href="/members/sign-up">Sign Up</a></li>
-            <li><a href="/members/sign-in">Sign In</a></li>
+
+            <c:if test="${empty login}">
+                <li><a href="/members/sign-up">Sign Up</a></li>
+                <li><a href="/members/sign-in">Sign In</a></li>
+            </c:if>
+            
+            <c:if test="${login ne null}">
+                <li>
+                    <a href="#">My Page</a>
+                </li>
+                <li>
+                    <a href="/members/sign-out">Sign out</a>
+                </li>
+            </c:if>
 
         </ul>
     </nav>

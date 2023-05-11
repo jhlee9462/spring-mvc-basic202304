@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -29,7 +31,29 @@ public class BoardController {
 
     // 목록 조회 요청
     @GetMapping("/list")
-    public String list(Model model, Search page) {
+    public String list(Model model, Search page, HttpServletRequest request) {
+
+        boolean flag = false;
+
+        // 세션을 확인
+        Object login = request.getSession().getAttribute("login");
+
+        if (login != null) {
+            flag = true;
+        }
+
+//        // 쿠키를 확인
+//        Cookie[] cookies = request.getCookies();
+//        for (Cookie cookie : cookies) {
+//            if (cookie.getName().equals("login")) {
+//                flag = true;
+//            }
+//        }
+
+        if (!flag) {
+            return "redirect:/members/sign-in";
+        }
+
         log.info("/board/list : GET");
         log.info("page : {}", page);
         List<BoardListResponseDTO> responseDTOS
@@ -69,7 +93,7 @@ public class BoardController {
 
     // 글 상세 조회 요청
     @GetMapping("/detail")
-    public String detail(int bno, Model model,@ModelAttribute("s") Search search) {
+    public String detail(int bno, Model model, @ModelAttribute("s") Search search) {
         System.out.println("/board/detail : GET");
         model.addAttribute("b", boardService.getDetail(bno));
 
