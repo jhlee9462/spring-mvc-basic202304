@@ -7,6 +7,7 @@ import com.spring.mvc.chap05.dto.page.Page;
 import com.spring.mvc.chap05.dto.page.PageMaker;
 import com.spring.mvc.chap05.dto.search.Search;
 import com.spring.mvc.chap05.service.BoardService;
+import com.spring.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.properties.bind.DefaultValue;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -33,26 +35,26 @@ public class BoardController {
     @GetMapping("/list")
     public String list(Model model, Search page, HttpServletRequest request) {
 
-        boolean flag = false;
-
-        // 세션을 확인
-        Object login = request.getSession().getAttribute("login");
-
-        if (login != null) {
-            flag = true;
-        }
-
-//        // 쿠키를 확인
-//        Cookie[] cookies = request.getCookies();
-//        for (Cookie cookie : cookies) {
-//            if (cookie.getName().equals("login")) {
-//                flag = true;
-//            }
+//        boolean flag = false;
+//
+//        // 세션을 확인
+//        Object login = request.getSession().getAttribute("login");
+//
+//        if (login != null) {
+//            flag = true;
 //        }
-
-        if (!flag) {
-            return "redirect:/members/sign-in";
-        }
+//
+////        // 쿠키를 확인
+////        Cookie[] cookies = request.getCookies();
+////        for (Cookie cookie : cookies) {
+////            if (cookie.getName().equals("login")) {
+////                flag = true;
+////            }
+////        }
+//
+//        if (!flag) {
+//            return "redirect:/members/sign-in";
+//        }
 
         log.info("/board/list : GET");
         log.info("page : {}", page);
@@ -70,16 +72,19 @@ public class BoardController {
 
     // 글쓰기 화면 조회 요청
     @GetMapping("/write")
-    public String write() {
+    public String write(HttpSession session) {
+
+        if (!LoginUtil.isLogin(session)) return "redirect:/members/sign-in";
+
         System.out.println("/board/write : GET");
         return "chap05/write";
     }
 
     // 글 등록 요청 처리
     @PostMapping("/write")
-    public String write(BoardWriteRequestDTO dto) {
+    public String write(BoardWriteRequestDTO dto, HttpSession session) {
         System.out.println("/board/write : POST");
-        boardService.register(dto);
+        boardService.register(dto, session);
         return "redirect:/board/list";
     }
 

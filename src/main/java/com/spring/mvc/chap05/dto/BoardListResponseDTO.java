@@ -20,6 +20,7 @@ public class BoardListResponseDTO {
     private final String date; // 날짜패턴 yyyy-MM-dd HH:mm
     private final int viewCount;
     private final boolean newFlag;
+    private final String account; // 작성자
 
     public BoardListResponseDTO(Board board) {
         this.boardNo = board.getBoardNo();
@@ -28,6 +29,7 @@ public class BoardListResponseDTO {
         this.date = makePrettierDateString(board.getRegDateTime());
         this.viewCount = board.getViewCount();
         this.newFlag = isNew(board);
+        this.account = board.getAccount();
     }
 
     private boolean isNew(Board board) {

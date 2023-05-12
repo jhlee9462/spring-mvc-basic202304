@@ -26,6 +26,16 @@ label {
     margin-bottom: 5px;
     font-size: 20px;
 }
+#writer {
+    font-size: 18px;
+    width: fit-content;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
 #title{
     font-size: 18px;
     width: 100%;

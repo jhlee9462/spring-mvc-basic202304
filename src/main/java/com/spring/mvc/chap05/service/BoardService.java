@@ -9,10 +9,12 @@ import com.spring.mvc.chap05.dto.search.Search;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardMapper;
 import com.spring.mvc.chap05.repository.BoardRepository;
+import com.spring.mvc.util.LoginUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Comparator;
 import java.util.List;
 
@@ -38,8 +40,10 @@ public class BoardService {
     }
 
     // 글 등록 중간처리
-    public boolean register(BoardWriteRequestDTO dto) {
-        return mapper.save(new Board(dto));
+    public boolean register(BoardWriteRequestDTO dto, HttpSession session) {
+        Board board = new Board(dto);
+        board.setAccount(LoginUtil.getCurrentLoginMemberAccount(session));
+        return mapper.save(board);
     }
 
     public boolean delete(int bno) {
