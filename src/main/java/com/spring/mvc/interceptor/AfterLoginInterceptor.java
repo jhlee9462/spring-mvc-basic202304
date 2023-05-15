@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 @Slf4j
-public class LoginInterceptor implements HandlerInterceptor {
+public class AfterLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

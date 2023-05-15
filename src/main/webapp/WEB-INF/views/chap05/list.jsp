@@ -74,7 +74,7 @@
                     </div>
                 </section>
 
-                <c:if test="${login.account eq b.account}">
+                <c:if test="${login.account eq b.account || login.auth eq 'ADMIN'}">
 
                     <div class="card-btn-group">
                         <button class="del-btn" data-href="/board/delete?bno=${b.boardNo}">

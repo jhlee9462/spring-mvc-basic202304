@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import static com.spring.mvc.chap05.service.LoginResult.SUCCESS;
+import static com.spring.mvc.util.LoginUtil.isAutoLogin;
+import static com.spring.mvc.util.LoginUtil.isLogin;
 
 @Controller
 @Slf4j
@@ -84,7 +86,7 @@ public class MemberController {
                          HttpServletRequest request) {
         log.info("/members/sign-in POST - {}", dto);
 
-        LoginResult result = service.authenticate(dto);
+        LoginResult result = service.authenticate(dto, request.getSession(), response);
 
         // 로그인 성공시
         if (result == SUCCESS) {
@@ -116,13 +118,26 @@ public class MemberController {
 
     // 로그아웃 요청 처리
     @GetMapping("/sign-out")
-    public String signOut(HttpSession session) {
-        // 세션에서 login 정보를 제거
-        session.removeAttribute("login");
+    public String signOut(HttpServletRequest request, HttpServletResponse response) {
 
-        // 세션을 아예 초기화 (세션만료 시간)
-        session.invalidate();
+        HttpSession session = request.getSession();
 
-        return "redirect:/";
+        // 로그인중인지 확인
+        if (isLogin(session)) {
+            // 자동로그인 상태라면 해제한다.
+            if (isAutoLogin(request)) {
+                service.autoLoginClear(request, response);
+            }
+
+            // 세션에서 login 정보를 제거
+            session.removeAttribute("login");
+
+            // 세션을 아예 초기화 (세션만료 시간)
+            session.invalidate();
+
+            return "redirect:/";
+        }
+
+        return "redirect:/members/sign-in";
     }
 }
