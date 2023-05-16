@@ -11,7 +11,7 @@
         </h1>
 
         <div class="profile-box">
-            <c:if test="${login eq null}">
+            <c:if test="${login eq null || login.profile eq null}">
 
                 <img src="/assets/img/annonymous.jpg" alt="프사">
 
