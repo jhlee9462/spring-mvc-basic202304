@@ -4,8 +4,10 @@ import com.spring.mvc.chap05.dto.LoginRequestDTO;
 import com.spring.mvc.chap05.dto.SignupRequestDTO;
 import com.spring.mvc.chap05.service.LoginResult;
 import com.spring.mvc.chap05.service.MemberService;
+import com.spring.mvc.util.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +30,8 @@ import static com.spring.mvc.util.LoginUtil.isLogin;
 public class MemberController {
 
     private final MemberService service;
+    @Value("${file.upload.root-path}")
+    private String rootPath;
 
     // 회원 가입 요청
     // 회원가입 양식 요청
@@ -42,9 +46,14 @@ public class MemberController {
     @PostMapping("/sign-up")
     public String signup(SignupRequestDTO dto) {
         log.info("/members/signup POST - {}", dto);
-        service.join(dto);
 
-        return "redirect:/board/list";
+        log.info("프로필사진 이름 : {} ", dto.getProfileImage().getOriginalFilename());
+        String savePath = FileUtil.uploadFile(dto.getProfileImage(), rootPath);
+        log.info("저장 경로 이름 : {} ", savePath);
+
+        service.join(dto, savePath);
+
+        return "redirect:/members/sign-in";
     }
 
     // 아이디, 이메일 중복 검사

@@ -20,8 +20,7 @@ import java.time.LocalDateTime;
 @Setter @Getter
 @ToString @EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@AllArgsConstructor @Builder
 public class Member {
 
     private String account;
@@ -31,5 +30,6 @@ public class Member {
     private Auth auth;
     private LocalDateTime regDate;
     private LocalDateTime limitTime;
+    private String profileImage;
 
 }
