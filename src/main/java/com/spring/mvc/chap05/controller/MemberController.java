@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
@@ -44,14 +45,19 @@ public class MemberController {
 
     // 회원가입 처리 요청
     @PostMapping("/sign-up")
-    public String signup(SignupRequestDTO dto) {
-        log.info("/members/signup POST - {}", dto);
+    public String signUp(SignupRequestDTO dto) {
+        log.info("/members/sign-up POST ! - {}", dto);
 
-        log.info("프로필사진 이름 : {} ", dto.getProfileImage().getOriginalFilename());
-        String savePath = FileUtil.uploadFile(dto.getProfileImage(), rootPath);
-        log.info("저장 경로 이름 : {} ", savePath);
+        MultipartFile profileImage = dto.getProfileImage();
+        log.info("프로필사진 이름: {}", profileImage.getOriginalFilename());
 
-        service.join(dto, savePath);
+        String savePath = null;
+        if (!profileImage.isEmpty()) {
+            // 실제 로컬 스토리지에 파일을 업로드하는 로직
+            savePath = FileUtil.uploadFile(profileImage, rootPath);
+        }
+
+        boolean flag = service.join(dto, savePath);
 
         return "redirect:/members/sign-in";
     }

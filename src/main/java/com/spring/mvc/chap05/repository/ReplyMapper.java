@@ -23,7 +23,7 @@ public interface ReplyMapper {
     Reply findOne(long replyNo);
 
     // 댓글 목록 조회
-    List<Reply> findAll(@Param("bn") long boardNo,@Param("p") Page page);
+    List<Reply> findAll(@Param("bn") long boardNo, @Param("p") Page page);
 
     // 댓글 수 조회
     int count(long boardNo);

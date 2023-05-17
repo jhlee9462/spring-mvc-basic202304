@@ -20,3 +20,7 @@ Content-Type: application/json
   "bno": 7,
   "text": "아니 꿀잼인데?~~~"
 }
+
+###
+
+GET localhost:8181/api/v1/replies/298/page/1
