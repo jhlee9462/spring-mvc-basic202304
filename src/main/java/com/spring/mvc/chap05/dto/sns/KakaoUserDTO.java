@@ -9,7 +9,7 @@ import lombok.ToString;
 import java.time.LocalDateTime;
 
 @Getter @Setter
-@ToString @NoArgsConstructor
+@ToString
 public class KakaoUserDTO {
 
     private long id;
@@ -21,14 +21,12 @@ public class KakaoUserDTO {
     private KakaoAccount kakaoAccount;
 
     @Setter @Getter @ToString
-    @NoArgsConstructor
     public class KakaoAccount {
 
         private Profile profile;
         private String email;
 
         @Setter @Getter @ToString
-        @NoArgsConstructor
         public class Profile {
 
             private String nickname;

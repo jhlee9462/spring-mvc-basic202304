@@ -39,7 +39,7 @@ public class SnsLoginService {
                         .password("9999")
                         .name(kakaoUserInfo.getKakaoAccount().getProfile().getNickname())
                         .build(),
-                kakaoUserInfo.getKakaoAccount().getProfile().getNickname()
+                kakaoUserInfo.getKakaoAccount().getProfile().getThumbnailImageUrl()
                         );
     }
 
