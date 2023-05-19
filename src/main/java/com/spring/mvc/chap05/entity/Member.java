@@ -31,5 +31,6 @@ public class Member {
     private LocalDateTime regDate;
     private LocalDateTime limitTime;
     private String profileImage;
+    private LoginMethod loginMethod;
 
 }

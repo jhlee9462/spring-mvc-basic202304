@@ -47,7 +47,7 @@ public class FileUtil {
         String fullPath = newPath + "/" + newFileName;
         log.info("전체 경로 : {} ", fullPath);
 
-        return fullPath.substring(rootPath.length());
+        return "/local" + fullPath.substring(rootPath.length());
     }
 
     /**
